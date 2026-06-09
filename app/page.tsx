@@ -9,11 +9,17 @@ export const dynamic = "force-dynamic"
 
 async function DashboardContent() {
   const courses = await getCourses()
-  
+
+  // ✅ FIX: convert id from number → string (required for Course type)
+  const formattedCourses = courses.map((course) => ({
+    ...course,
+    id: String(course.id),
+  }))
+
   return (
     <AppShell>
       <Sidebar />
-      <BentoGrid courses={courses} />
+      <BentoGrid courses={formattedCourses} />
     </AppShell>
   )
 }
